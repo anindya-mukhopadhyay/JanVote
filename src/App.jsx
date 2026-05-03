@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import Chat from './pages/Chat'
@@ -7,12 +7,19 @@ import TimelinePage from './pages/TimelinePage'
 import Quiz from './pages/Quiz'
 import Simulation from './pages/Simulation'
 import { Heart, Code, Briefcase } from 'lucide-react'
+import { logPageView } from './firebase'
 
 function App() {
   const [isEli10Mode, setIsEli10Mode] = useState(false)
   const [isDarkMode, setIsDarkMode] = useState(
     () => localStorage.getItem('election-guide-dark-mode') === 'true',
   )
+  const location = useLocation()
+
+  // Google Analytics Page View Tracking
+  useEffect(() => {
+    logPageView(location.pathname)
+  }, [location])
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', isDarkMode)
@@ -21,6 +28,14 @@ function App() {
 
   return (
     <>
+      {/* Skip to Main Content Link for Accessibility */}
+      <a 
+        href="#main-content" 
+        className="absolute top-0 left-0 z-[100] -translate-y-full bg-brand-600 text-white px-4 py-2 font-bold transition-transform focus:translate-y-0 focus:outline-none focus:ring-4 focus:ring-white"
+      >
+        Skip to main content
+      </a>
+
       <div className="bg-blobs"></div>
       <div className="relative min-h-screen text-slate-800 dark:text-slate-100 transition-colors duration-300 flex flex-col">
         <div className="mx-auto flex w-full max-w-6xl flex-col px-4 pt-4 sm:px-6 lg:px-8 flex-1">
@@ -31,7 +46,7 @@ function App() {
             onToggleEli10={() => setIsEli10Mode((prev) => !prev)}
           />
 
-          <main className="mt-6 flex-1 z-10 w-full" role="main" aria-label="Main Content">
+          <main id="main-content" className="mt-6 flex-1 z-10 w-full" role="main" aria-label="Main Content">
             <Routes>
               <Route path="/" element={<Home isEli10Mode={isEli10Mode} />} />
               <Route path="/chat" element={<Chat isEli10Mode={isEli10Mode} />} />

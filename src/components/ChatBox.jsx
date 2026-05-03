@@ -48,7 +48,7 @@ function ChatBox({ isEli10Mode }) {
       text: isEli10Mode
         ? 'Hi! I can explain elections in super simple language. Ask about "How elections work" or "Voting steps".'
         : 'Hello. I am your AI election guide. Ask about "How elections work" or "Voting steps".',
-      isStreaming: true
+      isStreaming: false
     },
   ])
   const endOfMessagesRef = useRef(null)
@@ -123,7 +123,7 @@ function ChatBox({ isEli10Mode }) {
 
       {/* Chat Area */}
       <div className="flex-1 overflow-y-auto rounded-2xl bg-slate-50/50 p-4 dark:bg-[#0f172a]/50 border border-slate-200/50 dark:border-slate-700/50 custom-scrollbar mb-6">
-        <div className="space-y-6">
+        <div className="space-y-6" aria-live="polite" aria-relevant="additions text">
           <AnimatePresence initial={false}>
             {messages.map((message) => (
               <motion.div
