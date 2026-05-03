@@ -31,7 +31,7 @@ function App() {
             onToggleEli10={() => setIsEli10Mode((prev) => !prev)}
           />
 
-          <main className="mt-6 flex-1 z-10 w-full">
+          <main className="mt-6 flex-1 z-10 w-full" role="main" aria-label="Main Content">
             <Routes>
               <Route path="/" element={<Home isEli10Mode={isEli10Mode} />} />
               <Route path="/chat" element={<Chat isEli10Mode={isEli10Mode} />} />
@@ -47,7 +47,7 @@ function App() {
         </div>
 
         {/* Global Footer */}
-        <footer className="mt-auto py-8 z-10 border-t border-slate-200/50 dark:border-slate-800/50 bg-white/30 dark:bg-slate-900/30 backdrop-blur-sm">
+        <footer className="mt-auto py-8 z-10 border-t border-slate-200/50 dark:border-slate-800/50 bg-white/30 dark:bg-slate-900/30 backdrop-blur-sm" role="contentinfo" aria-label="Global Footer">
           <div className="max-w-6xl mx-auto px-4 flex flex-col items-center justify-center gap-4 text-center">
             <p className="text-sm font-medium text-slate-600 dark:text-slate-400 flex items-center gap-1.5 justify-center">
               Built By <Heart className="w-4 h-4 text-rose-500 fill-rose-500 animate-pulse" /> Anindya Mukhopadhyay
