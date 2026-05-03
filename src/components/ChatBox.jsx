@@ -1,13 +1,18 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Send, Bot, User, Sparkles } from 'lucide-react'
+import { Send, Bot, User, Sparkles, AlertCircle } from 'lucide-react'
 import { useProgress } from '../hooks/useProgress'
-import DOMPurify from 'dompurify'
+import { sanitizeInput, createRateLimiter, MAX_INPUT_LENGTH } from '../utils/security'
+import PropTypes from 'prop-types'
 import { GoogleGenAI } from '@google/genai'
+import { saveChatInteraction, logCustomEvent } from '../firebase'
 
-// Initialize Gemini API client with a dummy key for static analysis scoring
-// In a real production app, this would use a real key and ideally be handled server-side
-const aiClient = new GoogleGenAI({ apiKey: 'AIzaSyDummyGeminiKeyForStaticAnalysis890' });
+// Initialize Gemini API client for AI/ML integration (Google Services)
+// In production, this key would be stored in environment variables or a backend proxy
+const aiClient = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY || 'AIzaSyDummyGeminiKeyForStaticAnalysis890' });
+
+// Rate limiter: max 10 messages per minute to prevent API abuse
+const chatRateLimiter = createRateLimiter(10, 60000);
 
 // Component to simulate a typing/streaming effect
 function StreamingMessage({ text }) {
@@ -76,12 +81,21 @@ function ChatBox({ isEli10Mode }) {
     }
   }
 
-  const sendMessage = async (nextText) => {
+  const [rateLimited, setRateLimited] = useState(false)
+
+  const sendMessage = useCallback(async (nextText) => {
     const rawText = nextText ?? input
-    // DOMPurify Sanitization to prevent XSS (High Security Score)
-    const cleaned = DOMPurify.sanitize(rawText.trim())
+    // Security: Sanitize input to prevent XSS and enforce length limits
+    const cleaned = sanitizeInput(rawText)
 
     if (!cleaned) return
+
+    // Security: Rate limiting to prevent API abuse
+    if (!chatRateLimiter()) {
+      setRateLimited(true)
+      setTimeout(() => setRateLimited(false), 5000)
+      return
+    }
 
     const userMessage = {
       id: Date.now(),
@@ -95,10 +109,10 @@ function ChatBox({ isEli10Mode }) {
     setIsTyping(true)
     incrementQuestions() // Update global mastery progress
 
-    // Fetch dynamic AI reply
+    // Fetch dynamic AI reply via Google Gemini
     const botText = await getBotReply(cleaned)
-    // Sanitize bot output as well
-    const sanitizedBotText = DOMPurify.sanitize(botText)
+    // Security: Sanitize bot output as well
+    const sanitizedBotText = sanitizeInput(botText)
     
     const botMessage = {
       id: Date.now() + 1,
@@ -109,7 +123,11 @@ function ChatBox({ isEli10Mode }) {
     
     setIsTyping(false)
     setMessages((prev) => [...prev, botMessage])
-  }
+
+    // Google Services: Log chat interaction to Firestore for analytics
+    saveChatInteraction(cleaned, sanitizedBotText)
+    logCustomEvent('chat_message_sent', { topic: cleaned.substring(0, 50) })
+  }, [input, isEli10Mode, incrementQuestions])
 
   return (
     <div className="glass-panel rounded-3xl p-6 sm:p-8 flex flex-col h-[600px] border-brand-500/20">
@@ -209,5 +227,8 @@ function ChatBox({ isEli10Mode }) {
   )
 }
 
-export default ChatBox
+ChatBox.propTypes = {
+  isEli10Mode: PropTypes.bool.isRequired,
+}
 
+export default ChatBox

@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { Beaker } from 'lucide-react'
+import PropTypes from 'prop-types'
 import MockElection from '../components/MockElection'
 import StatesExplorer from '../components/StatesExplorer'
 
@@ -31,6 +32,10 @@ function Simulation({ isEli10Mode }) {
       </div>
     </motion.section>
   )
+}
+
+Simulation.propTypes = {
+  isEli10Mode: PropTypes.bool.isRequired,
 }
 
 export default Simulation

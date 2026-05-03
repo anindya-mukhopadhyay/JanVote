@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { CheckCircle2, XCircle } from 'lucide-react'
+import PropTypes from 'prop-types'
 
 function QuizCard({
   question,
@@ -85,5 +86,17 @@ function QuizCard({
   )
 }
 
-export default QuizCard
+QuizCard.propTypes = {
+  question: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    question: PropTypes.string.isRequired,
+    options: PropTypes.arrayOf(PropTypes.string).isRequired,
+    correctAnswer: PropTypes.string.isRequired,
+  }).isRequired,
+  questionIndex: PropTypes.number.isRequired,
+  selectedOption: PropTypes.string,
+  onSelectOption: PropTypes.func.isRequired,
+  isSubmitted: PropTypes.bool.isRequired,
+}
 
+export default QuizCard

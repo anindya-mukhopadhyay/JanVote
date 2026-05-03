@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
+import ErrorBoundary from './components/ErrorBoundary'
 import Home from './pages/Home'
 import Chat from './pages/Chat'
 import TimelinePage from './pages/TimelinePage'
 import Quiz from './pages/Quiz'
 import Simulation from './pages/Simulation'
 import { Heart, Code, Briefcase } from 'lucide-react'
-import { logPageView } from './firebase'
+import { logPageView, logCustomEvent } from './firebase'
 
 function App() {
   const [isEli10Mode, setIsEli10Mode] = useState(false)
@@ -27,7 +28,7 @@ function App() {
   }, [isDarkMode])
 
   return (
-    <>
+    <ErrorBoundary>
       {/* Skip to Main Content Link for Accessibility */}
       <a 
         href="#main-content" 
@@ -88,7 +89,7 @@ function App() {
           </div>
         </footer>
       </div>
-    </>
+    </ErrorBoundary>
   )
 }
 

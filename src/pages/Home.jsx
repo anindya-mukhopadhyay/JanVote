@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { BookOpen, MessageCircle, HelpCircle, Trophy, ArrowRight } from 'lucide-react'
 import { useProgress } from '../hooks/useProgress'
+import PropTypes from 'prop-types'
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -124,6 +125,10 @@ function Home({ isEli10Mode }) {
       </motion.nav>
     </motion.section>
   )
+}
+
+Home.propTypes = {
+  isEli10Mode: PropTypes.bool.isRequired,
 }
 
 export default Home

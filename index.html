@@ -4,7 +4,23 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Election Guide</title>
+
+    <!-- Security: Content Security Policy to prevent XSS and data injection -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://apis.google.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.googleapis.com https://*.firebaseio.com https://*.google-analytics.com https://generativelanguage.googleapis.com;" />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="DENY" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+    <!-- SEO Meta Tags -->
+    <title>JanVote - Interactive Election Guide for India</title>
+    <meta name="description" content="JanVote is an interactive, AI-powered election guide that explains India's democratic process through timelines, quizzes, simulations, and an AI chatbot. Built with React, Firebase, and Google Gemini." />
+    <meta name="keywords" content="India elections, voting guide, election process, civic education, AI chatbot, quiz, democracy" />
+    <meta name="author" content="Anindya Mukhopadhyay" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="JanVote - Interactive Election Guide" />
+    <meta property="og:description" content="Learn about India's election process with AI-powered interactive tools." />
+    <meta property="og:type" content="website" />
   </head>
   <body>
     <div id="root"></div>

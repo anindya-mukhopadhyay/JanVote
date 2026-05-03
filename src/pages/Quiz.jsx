@@ -2,9 +2,11 @@ import { useMemo, useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import confetti from 'canvas-confetti'
 import { RotateCcw, Send, Award, Target } from 'lucide-react'
+import PropTypes from 'prop-types'
 import QuizCard from '../components/QuizCard'
 import { quizData } from '../data/quizData'
 import { useProgress } from '../hooks/useProgress'
+import { saveQuizResult, logCustomEvent } from '../firebase'
 
 function Quiz({ isEli10Mode }) {
   const [selectedAnswers, setSelectedAnswers] = useState({})
@@ -41,6 +43,10 @@ function Quiz({ isEli10Mode }) {
     setScore(total)
     setIsSubmitted(true)
     updateQuizHighscore(total)
+
+    // Google Services: Save quiz result to Firestore and log analytics event
+    saveQuizResult(total, quizData.length)
+    logCustomEvent('quiz_completed', { score: total, total: quizData.length })
 
     // Trigger confetti if score is perfect
     if (total === quizData.length) {
@@ -178,5 +184,8 @@ function Quiz({ isEli10Mode }) {
   )
 }
 
-export default Quiz
+Quiz.propTypes = {
+  isEli10Mode: PropTypes.bool.isRequired,
+}
 
+export default Quiz

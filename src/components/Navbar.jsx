@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Moon, Sun, Baby, MapPin } from 'lucide-react'
+import PropTypes from 'prop-types'
 
 const navItems = [
   { to: '/', label: 'Home' },
@@ -90,5 +91,11 @@ function Navbar({ isDarkMode, isEli10Mode, onToggleDarkMode, onToggleEli10 }) {
   )
 }
 
-export default Navbar
+Navbar.propTypes = {
+  isDarkMode: PropTypes.bool.isRequired,
+  isEli10Mode: PropTypes.bool.isRequired,
+  onToggleDarkMode: PropTypes.func.isRequired,
+  onToggleEli10: PropTypes.func.isRequired,
+}
 
+export default Navbar
