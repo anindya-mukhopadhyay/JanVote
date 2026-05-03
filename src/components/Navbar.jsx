@@ -4,6 +4,7 @@ import { Moon, Sun, Baby, MapPin } from 'lucide-react'
 
 const navItems = [
   { to: '/', label: 'Home' },
+  { to: '/simulation', label: 'Simulation' },
   { to: '/chat', label: 'Chat Assistant' },
   { to: '/timeline', label: 'Timeline' },
   { to: '/quiz', label: 'Quiz' },
@@ -33,7 +34,7 @@ function Navbar({ isDarkMode, isEli10Mode, onToggleDarkMode, onToggleEli10 }) {
               key={item.to}
               to={item.to}
               className={({ isActive }) =>
-                `relative rounded-full px-5 py-2 text-sm font-semibold transition-colors ${
+                `relative rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
                   isActive
                     ? 'text-white'
                     : 'text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white'
@@ -85,3 +86,4 @@ function Navbar({ isDarkMode, isEli10Mode, onToggleDarkMode, onToggleEli10 }) {
 }
 
 export default Navbar
+
