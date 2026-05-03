@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { BookOpen, MessageCircle, HelpCircle, Trophy, ArrowRight } from 'lucide-react'
 import { useProgress } from '../hooks/useProgress'
+import { useAnalytics } from '../hooks/useAnalytics'
 import PropTypes from 'prop-types'
 
 const containerVariants = {
@@ -20,6 +21,7 @@ const itemVariants = {
 function Home({ isEli10Mode }) {
   const navigate = useNavigate()
   const { stats } = useProgress()
+  const { trackInteraction } = useAnalytics()
 
   return (
     <motion.section 
@@ -52,7 +54,10 @@ function Home({ isEli10Mode }) {
           <motion.div variants={itemVariants} className="mt-10">
             <button
               type="button"
-              onClick={() => navigate('/timeline')}
+              onClick={() => {
+                trackInteraction('hero_cta');
+                navigate('/timeline');
+              }}
               className="group relative inline-flex items-center justify-center gap-3 rounded-full bg-gradient-to-r from-brand-600 to-accent-600 px-8 py-4 text-base font-bold text-white transition-all hover:scale-105 hover:shadow-glow focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-500/50"
             >
               Start Learning Journey

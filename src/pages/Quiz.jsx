@@ -4,6 +4,7 @@ import confetti from 'canvas-confetti'
 import { RotateCcw, Send, Award, Target } from 'lucide-react'
 import PropTypes from 'prop-types'
 import QuizCard from '../components/QuizCard'
+import Leaderboard from '../components/Leaderboard'
 import { quizData } from '../data/quizData'
 import { useProgress } from '../hooks/useProgress'
 import { saveQuizResult, logCustomEvent } from '../firebase'
@@ -179,6 +180,9 @@ function Quiz({ isEli10Mode }) {
             <RotateCcw className="w-5 h-5" /> Retake Quiz
           </motion.button>
         )}
+      </div>
+      <div className="pt-12">
+        <Leaderboard />
       </div>
     </motion.section>
   )

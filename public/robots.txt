@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://janvote-app-932267190808.us-central1.run.app/sitemap.xml

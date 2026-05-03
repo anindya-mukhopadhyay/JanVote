@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Map, Users, Info } from 'lucide-react';
 import { useSoundEffects } from '../hooks/useSoundEffects';
+import PropTypes from 'prop-types';
 
 // Sample data for some key states to keep it simple but illustrative
 const statesData = [

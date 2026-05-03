@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { Calendar, FileSignature, Mic, Vote, Calculator } from 'lucide-react'
+import PropTypes from 'prop-types'
 
 const icons = {
   1: Calendar,
@@ -47,6 +48,18 @@ function StepCard({ step, stepNumber, isEli10Mode, onInView }) {
       </div>
     </motion.article>
   )
+}
+
+StepCard.propTypes = {
+  step: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    eli10: PropTypes.string.isRequired,
+  }).isRequired,
+  stepNumber: PropTypes.number.isRequired,
+  isEli10Mode: PropTypes.bool.isRequired,
+  onInView: PropTypes.func,
 }
 
 export default StepCard

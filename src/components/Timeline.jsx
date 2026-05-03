@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import PropTypes from 'prop-types'
 import StepCard from './StepCard'
 
 function Timeline({ steps, isEli10Mode, onStepInView }) {
@@ -42,6 +43,17 @@ function Timeline({ steps, isEli10Mode, onStepInView }) {
       </div>
     </div>
   )
+}
+
+Timeline.propTypes = {
+  steps: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    eli10: PropTypes.string.isRequired,
+  })).isRequired,
+  isEli10Mode: PropTypes.bool.isRequired,
+  onStepInView: PropTypes.func,
 }
 
 export default Timeline

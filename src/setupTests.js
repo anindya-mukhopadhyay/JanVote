@@ -24,3 +24,13 @@ window.AudioContext = class AudioContext {
 
 // Mock scrollIntoView which is not available in jsdom
 Element.prototype.scrollIntoView = vi.fn();
+// Mock IntersectionObserver for JSDOM
+global.IntersectionObserver = class IntersectionObserver {
+  constructor() {}
+  disconnect() {}
+  observe() {}
+  unobserve() {}
+  takeRecords() { return [] }
+};
+
+window.IntersectionObserver = global.IntersectionObserver;
