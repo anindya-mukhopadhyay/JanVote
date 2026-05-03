@@ -6,7 +6,7 @@ import Chat from './pages/Chat'
 import TimelinePage from './pages/TimelinePage'
 import Quiz from './pages/Quiz'
 import Simulation from './pages/Simulation'
-import { Heart, Github, Linkedin } from 'lucide-react'
+import { Heart, Code, Briefcase } from 'lucide-react'
 
 function App() {
   const [isEli10Mode, setIsEli10Mode] = useState(false)
@@ -59,7 +59,7 @@ function App() {
                 rel="noreferrer"
                 className="flex items-center gap-2 text-sm text-slate-500 hover:text-brand-600 dark:text-slate-400 dark:hover:text-brand-400 transition-colors bg-white/50 dark:bg-slate-800/50 px-4 py-2 rounded-full border border-slate-200 dark:border-slate-700 shadow-sm"
               >
-                <Github className="w-4 h-4" /> GitHub
+                <Code className="w-4 h-4" /> GitHub
               </a>
               <a 
                 href="https://www.linkedin.com/in/anindya-mukhopadhy/" 
@@ -67,7 +67,7 @@ function App() {
                 rel="noreferrer"
                 className="flex items-center gap-2 text-sm text-slate-500 hover:text-brand-600 dark:text-slate-400 dark:hover:text-brand-400 transition-colors bg-white/50 dark:bg-slate-800/50 px-4 py-2 rounded-full border border-slate-200 dark:border-slate-700 shadow-sm"
               >
-                <Linkedin className="w-4 h-4" /> LinkedIn
+                <Briefcase className="w-4 h-4" /> LinkedIn
               </a>
             </div>
           </div>
