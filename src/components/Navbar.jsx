@@ -36,10 +36,9 @@ function Navbar({ isDarkMode, isEli10Mode, onToggleDarkMode, onToggleEli10 }) {
               to={item.to}
               aria-label={`Navigate to ${item.label}`}
               className={({ isActive }) =>
-                `relative rounded-full px-4 py-2 text-sm font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 ${
-                  isActive
-                    ? 'text-white'
-                    : 'text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white'
+                `relative rounded-full px-4 py-2 text-sm font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 ${isActive
+                  ? 'text-white'
+                  : 'text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white'
                 }`
               }
             >
@@ -66,16 +65,15 @@ function Navbar({ isDarkMode, isEli10Mode, onToggleDarkMode, onToggleEli10 }) {
             onClick={onToggleEli10}
             aria-label={isEli10Mode ? 'Disable ELI10 Mode' : 'Enable ELI10 Mode'}
             aria-pressed={isEli10Mode}
-            className={`flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-bold transition-all shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 ${
-              isEli10Mode
+            className={`flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-bold transition-all shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 ${isEli10Mode
                 ? 'border-accent-500/30 bg-accent-500/10 text-accent-600 dark:text-accent-300'
                 : 'border-slate-200 bg-white/50 text-slate-600 hover:bg-white dark:border-slate-700 dark:bg-slate-800/50 dark:text-slate-300 dark:hover:bg-slate-800'
-            }`}
+              }`}
           >
             <Baby className="w-4 h-4" aria-hidden="true" />
             {isEli10Mode ? 'ELI10 Mode' : 'Standard'}
           </button>
-          
+
           <button
             type="button"
             onClick={onToggleDarkMode}
